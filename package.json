@@ -1,0 +1,26 @@
+{
+  "name": "shopping-list",
+  "version": "0.0.1",
+  "description": "Shopping list using node.js",
+  "main": "index.js",
+  "scripts": {
+    "dev:server" : "nodemon -L index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QuentinMcCarthy/node-shopping-list.git"
+  },
+  "keywords": [
+    "node",
+    "shopping",
+    "list",
+    "web",
+    "server"
+  ],
+  "author": "Quentin McCarthy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/QuentinMcCarthy/node-shopping-list/issues"
+  },
+  "homepage": "https://github.com/QuentinMcCarthy/node-shopping-list#readme"
+}
