@@ -16,7 +16,8 @@ var server = http.createServer(function(request, response){
 			// Read the html file for the page and display it if there is no errors.
 	        fs.readFile("./public/index.html", "UTF-8", function(error, contents){
 	            if(error){
-	                console.log("error, something went wrong");
+					console.log(error);
+	                console.log("Error, something went wrong");
 	            } else {
 	                response.writeHead(200, {"Content-Type": "text/html"});
 	                response.end(contents);
