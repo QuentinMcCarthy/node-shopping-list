@@ -74,7 +74,7 @@ var server = http.createServer(function(request, response){
 						})
 
 					}
-				})
+				});
 
 				response.writeHead(302, {"Location": "/"});
 				response.end();
