@@ -2,7 +2,8 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
-// const qs = require("querystring");
+const qs = require("querystring");
+const listData = require("./data/list.json");
 
 // Server variable.
 var server = http.createServer(function(request, response){
@@ -35,43 +36,50 @@ var server = http.createServer(function(request, response){
 
 	        response.writeHead(200, {"Content-Type": "text/css"});
 	        fileStream.pipe(response);
-	    }// else if(request.url.match(/.jpg$/)){
-		// 	var imagePath = path.join(__dirname, "public", request.url);
-		// 	var imageStream = fs.createReadStream(imagePath);
-		//
-		// 	response.writeHead(200, {"Content-Type": "image/jpeg"});
-		// 	imageStream.pipe(response);
-		// } else if(request.url.match(/.png/)){
-		// 	var imagePath = path.join(__dirname, "public", request.url);
-		// 	var imageStream = fs.createReadStream(imagePath);
-		//
-		// 	response.writeHead(200, {"Content-Type": "image/png"});
-		// 	imageStream.pipe(response);
-		// } else if(request.url === "/allProducts"){
-		// 	response.writeHead(200, {"Content-Type": "text/json"});
-		// 	response.end(JSON.stringify(data));
-		// } else if(request.url === "/inStock"){
-		// 	inStock(response);
-		// } else if(request.url === "/noStock"){
-		// 	noStock(response);
-		// }
+	    } else if(request.url === "/listData"){
+			response.writeHead(200, {"Content-Type": "text/json"});
+			response.end(JSON.stringify(listData));
+		}
 	}else if(request.method === "POST"){
-		// if(request.url === "/formSubmit"){
-		// 	// console.log(request);
-		// 	// response.writeHead(200, {"Content-Type": "text/plain"});
-		// 	// response.end("The form was submitted");
-		//
-		// 	var body = "";
-		//
-		// 	request.on("data", function(data){
-		// 		body += data;
-		// 	});
-		//
-		// 	request.on("end", function(){
-		// 		var formData = qs.parse(body);
-		// 		console.log(body);
-		// 	});
-		// }
+		if(request.url === "/addItem"){
+			var body = "";
+
+			request.on("data", function(data){
+				body += data;
+			});
+
+			request.on("end", function(){
+				var formData = qs.parse(body);
+				// console.log(body);
+
+				fs.readFile("./data/list.json", "utf8", (err, data) => {
+					if(err){
+						console.log("Error");
+						console.log(err);
+					} else{
+						var dataArray = JSON.parse(data);
+						var content = body.split("=")[1]
+
+						dataArray.push(content);
+
+						JSON.stringify(dataArray);
+
+						fs.writeFile("./data/list.json", dataArray, (err) => {
+							if(err){
+								console.log("Error");
+								console.log(err);
+							} else{
+								console.log("List updated");
+							}
+						})
+
+					}
+				})
+
+				response.writeHead(302, {"Location": "/"});
+				response.end();
+			});
+		}
 	}
 
 
