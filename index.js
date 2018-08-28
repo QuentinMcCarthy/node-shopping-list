@@ -15,7 +15,7 @@ var server = http.createServer(function(request, response){
 		// If the url is any of these, then the user is on the specified page.
 	    if(request.url === "/" || request.url === "/home" || request.url === "/index"){
 			// Read the html file for the page and display it if there is no errors.
-	        fs.readFile("./public/index.html", "UTF-8", function(error, contents){
+	        fs.readFile("./public/home.html", "UTF-8", function(error, contents){
 	            if(error){
 					console.log(error);
 	                console.log("Error, something went wrong");
